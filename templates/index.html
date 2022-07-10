@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>House Price Prediction</title>
+    <style>
+    html {
+            height: 100%;
+            width: 100%;
+         }
+
+    body {
+           background-image: linear-gradient(to top, #8ec28e, #8fc38f, #90c38f,
+           #90c490, #91c490, #98c898, #a0cd9f, #a7d1a7, #b7dab7, #c7e2c7,
+           #d8ebd8, #e8f3e8);
+         }
+
+    h1 {
+         color: white;
+         text-shadow: 2px 2px 4px #000000;
+       }
+
+    .Area {
+            position: absolute;
+            right:30px;
+            top:0px;
+          }
+
+    .BHK {
+          position: absolute;
+          right:300px;
+          top:0px;
+         }
+
+    .New {
+           position: absolute;
+           left:800px;
+           top:100px;
+         }
+
+    .NewB1 {
+             width: 16px;
+             height: 16px;
+           }
+
+    .park {
+            position: absolute;
+            left:800px;
+            top:140px;
+          }
+
+    .parkB2 {
+             width: 16px;
+             height: 16px;
+           }
+
+    .pool {
+            position: absolute;
+            left:800px;
+            top:180px;
+          }
+
+    .poolB3 {
+             width: 16px;
+             height: 16px;
+            }
+
+    .gas {
+           position: absolute;
+           left:250px;
+           top:100px;
+         }
+
+    .gasB4 {
+             width: 16px;
+             height: 16px;
+           }
+
+    .jog {
+           position: absolute;
+           left:250px;
+           top:140px;
+         }
+
+    .jogB5 {
+             width: 16px;
+             height: 16px;
+           }
+
+    .gym {
+           position: absolute;
+           left:250px;
+           top:180px;
+         }
+
+    .gymB6 {
+             width: 16px;
+             height: 16px;
+           }
+
+    .btn {
+          position: absolute;
+          right:240px;
+          top:100px;
+         }
+
+    .pred {
+            position: absolute;
+            right:420px;
+            top:250px;
+          }
+    </style>
+  </head>
+
+  <body >
+    <div class="container">
+      <div class = "row">
+        <div class="card" style="width: 100%; height: 200%; margin-top: 50px;" >
+        <div class="card_header" style="text-align:center; background-color:#30742F; height:5rem; " >
+          <h1
+                  style="Futura,Trebuchet MS,Arial,sans-serif; font-weight:800;">Welcome to Mumbai House Price Predictor</h1>
+        </div>
+        <div class="card body" style="background-color:#EBF7E3; height:25rem;" >
+            <form method="post" accept-charset="utf-8">
+            <div class="row">
+              <div class="col-md-6 form-group"
+                   style="text-align: center;" >
+              <label><b>Location</b></label>
+              <select class="selectpicker form-control" name="Location" id="Location" required = "1" style="width:90%; position:absolute; left:50px; top:30px;">
+                {% for Location in Locations %}
+                <option value="{{Location}}">{{Location}}</option>
+                {% endfor %}
+              </select>
+              </div>
+
+              <div class="Area" style="text-align: center;">
+                <label><b>Area</b></label>
+                <input type="text" class="selectpicker form-control" name="Area" id="Area" required = "1" placeholder="Enter area in sq.ft">
+              </div>
+
+              <div class="BHK" style="text-align: center;">
+                  <label><b>BHK</b></label>
+                  <input type = "text" class="selectpicker form-control" name="Bedrooms" id="Bedrooms" required = "1" placeholder="Enter no. of bedrooms">
+              </div>
+
+                <br>
+
+                <div class="New" style="text-align: center;">
+                    <input type="checkbox" id="b1" value="1" name="B1" class="NewB1">
+                    <label for="b1"></label>
+                    <label><b>Resale</b></label>
+                </div>
+            
+                <div class="park" style="text-align: center;">
+                    <input type="checkbox" id="b2" value="1" name="B2"
+                           class="parkB2">
+                    <label for="b2"></label>
+                    <label><b>Car Parking</b></label>
+                </div>
+
+                <div class="pool" style="text-align: center;">
+                    <input type="checkbox" id="b3" value="1" name="B3" class="poolB3">
+                    <label for="b3"></label>
+                    <label><b>Swimming Pool</b></label>
+                </div>
+
+                <div class="gas" style="text-align: center;">
+                    <input type="checkbox" id="b4" value="1" name="B4" class="gasB4">
+                    <label for="b4"></label>
+                    <label><b>Gas Connection</b></label>
+                </div>
+
+                <div class="jog" style="text-align: center;">
+                    <input type="checkbox" id="b5" value="1" name="B5" class="jogB5">
+                    <label for="b5"></label>
+                    <label><b>Jogging Track</b></label>
+                </div>
+
+                <div class="gym" style="text-align: center;">
+                    <input type="checkbox" id="b6" value="1" name="B6" class="gymB6">
+                    <label for="b6"></label>
+                    <label><b>Gymnasium</b></label>
+                </div>
+
+                <div class="btn"> <button
+                      class="btn btn-primary btn-sm form-control" style="width:700%;"
+                      onclick="send_data()">Predict Price</button>
+                </div>
+            </div>
+          </form>
+          <br>
+
+            <div class = "pred" style="text-align: center;">
+                <h3><span id="Prediction"></span></h3>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function form_handler(event)
+       {
+         event.preventDefault();
+       }
+        function send_data()
+        {
+         document.querySelector('form').addEventListener('submit', form_handler);
+
+         var fd = new FormData(document.querySelector('form'));
+
+         var xhr = new XMLHttpRequest();
+
+         xhr.open('POST','/predict',true);
+
+         document.getElementById("Prediction").innerHTML = "Wait PredictingPrice...";
+         xhr.onreadystatechange = function()
+         {
+           if(xhr.readyState == XMLHttpRequest.DONE)
+           {
+             document.getElementById("Prediction").innerHTML = "Prediction: ₹" + xhr.responseText;
+           }
+         };
+         xhr.onload = function(){};
+         xhr.send(fd)
+       }
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
